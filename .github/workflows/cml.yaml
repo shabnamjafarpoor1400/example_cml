@@ -13,7 +13,5 @@ jobs:
           python train.py
 
           echo "model metric" 
-          cat metrics.txt >> report.md
+          cat metrics.txt 
           
-          cml-publish confusion_matrix.png --md >> report.md
-          cml-send-comment report.md
