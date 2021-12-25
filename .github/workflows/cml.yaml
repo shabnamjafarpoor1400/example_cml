@@ -13,5 +13,5 @@ jobs:
           python train.py
 
           echo "model metric" 
-          cat metrics.txt  >> report.md
+          cat metrics.txt  >>  README.md
           
