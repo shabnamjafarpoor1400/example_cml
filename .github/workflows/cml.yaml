@@ -1,18 +1,28 @@
-name: model-training
+name: cml
 on: [push]
 jobs:
   run:
     runs-on: [ubuntu-latest]
+    container: docker://dvcorg/cml-py3:latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
-      
-      - name: cml-run
+      - name: 'Train the model'
         env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip3 install -r requirements.txt
+          # Your ML workflow goes here
+          pip install -r requirements.txt
           python train.py
+
+          echo "## Model Metrics" > report.md
+          cat metrics.txt >> report.md
+
+          echo "\n## confusion_matrix" >> report.md
+          
+
+          cml-publish confusion_matrix.png --md >> report.md
+
+          cml-send-comment report.md
           
 
 
