@@ -1,9 +1,8 @@
-name: CML
+name: cml
 on: [push]
 jobs:
   run:
      runs-on: ubuntu-latest
-     container: 
      steps:
         - uses: actions/checkout@v2
         - name: Train model
@@ -12,7 +11,6 @@ jobs:
            run: |
               pip install -r requirements.txt
               python train.py
-
               cat metrics.txt >> report.md
-              cml publish confusion_matrix.png --md >> report.md
-              cml send-comment report.md
+              cml publish confusion_matrix
+              
